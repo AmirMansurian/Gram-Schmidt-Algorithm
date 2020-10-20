@@ -1,9 +1,10 @@
-Gram-Schmidt <- function(input)
+Gram_Schmidt <- function(input)
 {
     
     NUmberOfMatrixes <- dim(input)[2];
     NumberOfElements <- dim(input)[1];
-    q <- matrix(0, nrow = NumberOfElements, ncol = NUmberOfMatrixes);
+    q <- matrix(rep(0, NumberOfElements*NUmberOfMatrixes), nrow = NumberOfElements, ncol = NUmberOfMatrixes);
+    
     Zero_no <- 0;
     
     q[, 1] <- input[, 1]/norm(input[, 1], type="2");
@@ -17,11 +18,14 @@ Gram-Schmidt <- function(input)
       }
       
       if (all(q[, i]==0))
+      {
         Zero_no <- Zero_no + 1;
-        
-      q[, i] <- q[, i] / norm(q[, i], type="2");
+      }
+      else
+      {
+        q[, i] <- q[, i] / norm(q[, i], type="2");
+      }
     }
-    
     
     qt <- matrix(rep(0, (NUmberOfMatrixes - Zero_no) * NumberOfElements), nrow = NumberOfElements, ncol = NUmberOfMatrixes - Zero_no);
     Dependent_Set <- rep(0, Zero_no);
